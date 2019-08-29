@@ -104,7 +104,7 @@
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5 (Strongly Agree)</option>
-                    </select>>
+                    </select>
             </div>
             <div id="q6">
                 <h5>6) I’d rather go to the movies than go to the park.</h5>
@@ -187,11 +187,21 @@
 
                 let userAnswers = [];
 
-                let testVal =  $("#test option:selected").val();
-                console.log("answer chosen: " + testVal);
-                // for (let i = 0; i < 10; i++) {
-                //     userAnswers.push($("#"))
-                // }
+                for (let i = 1; i < 11; i++) {
+                    let tempId = "#q" + i;
+                    //console.log("id = " + tempId);
+                    let temp = tempId + " option:selected";
+                    //console.log("temp = " + temp);
+                    let tempVal = $(temp).val();
+                    //console.log("val = " + tempVal);
+
+                    userAnswers.push(tempVal);                    
+                }
+
+                console.log("Answer array: " + userAnswers);
+
+                var user = new friend(userName, photoLink, userAnswers);
+                console.log(user);
             });
         });
     </script>
