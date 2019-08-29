@@ -13,3 +13,4 @@ app.listen(PORT, function(){
 
 
 require("./htmlRoutes.js")(app);
+require("./apiRoutes")(app);
