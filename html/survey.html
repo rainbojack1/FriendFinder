@@ -42,9 +42,9 @@
         <div class="main">
             <h3><strong>About You</strong></h3>
             <h4>Name (required)</h4>
-            <input type="text" id="name" class="form-control" required="true">
+            <input type="text" id="name" class="form-control" required>
             <h4>Link to a Current Photo (required)</h4>
-            <input type="text" id="photo" class="form-control" required="">
+            <input type="text" id="photo" class="form-control" required>
             <hr>
             <div class="mb-4">
                 <h5><em>Answer each question on a scale from 1 to 5, where 1 means strongly disagree and 5 means
@@ -53,7 +53,7 @@
 
             <div id="q1">
                 <h5>1) I’d rather go to a concert than listen to music at home.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -64,7 +64,7 @@
             </div>
             <div id="q2">
                 <h5>2) I prefer tacos over pizza for my go to comfort food.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -75,7 +75,7 @@
             </div>
             <div id="q3">
                 <h5>3) I prefer going to the beach than a big city for vacation.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -86,7 +86,7 @@
             </div>
             <div id="q4">
                 <h5>4) It is more important to tell the truth than try to protect people’s feelings.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -97,7 +97,7 @@
             </div>
             <div id="q5">
                 <h5>5) There is nothing wrong with telling a little white lie.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -108,7 +108,7 @@
             </div>
             <div id="q6">
                 <h5>6) I’d rather go to the movies than go to the park.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -119,7 +119,7 @@
             </div>
             <div id="q7">
                 <h5>7) I love going to large parties with lots of people.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -130,7 +130,7 @@
             </div>
             <div id="q8">
                 <h5>8) I think romantic comedies are better than action movies.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -141,7 +141,7 @@
             </div>
             <div id="q9">
                 <h5>9) I like rap music better than country music.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -152,7 +152,7 @@
             </div>
             <div id="q10">
                 <h5>10) I like originals more than remakes.</h5>
-                <select class="browser-default custom-select">
+                <select required class="browser-default custom-select">
                         <option selected>Choose an answer</option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
@@ -162,7 +162,7 @@
                     </select>
             </div>
             <div>
-                <button type="button" class="btn btn-primary btn-lg" id="submit">Submit</button>
+                <button type="submit" type="button" class="btn btn-primary btn-lg" id="submit">Submit</button>
             </div>
         </div>
     </div>
@@ -179,6 +179,33 @@
         $(document).ready(function() {
                         
         $("#submit").click(function () {
+            validate();
+            console.log("Is form valid? ", validate());    
+            
+            if(validate()){
+                captureAnswers();
+            }else{
+                alert("Please answer all questions.");
+            }
+        });
+
+            function validate(){
+                var isValid = true;
+                $(".form-control").each(function() {
+                    if ($(this).val() === "") {
+                        isValid = false;
+                    }
+                });
+
+                $(".custom-select").each(function() {
+                    if ($(this).val() === "") {
+                        isValid = false;
+                    }
+                });
+                return isValid;
+            }
+
+            function captureAnswers(){
                 let userName = $("#name").val().trim();
                 console.log("Name: " + userName);
 
@@ -202,7 +229,7 @@
 
                 var user = new friend(userName, photoLink, userAnswers);
                 console.log(user);
-            });
+            }
         });
     </script>
 </body>
